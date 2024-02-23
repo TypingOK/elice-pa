@@ -1,6 +1,7 @@
 import { dataTransform } from "@/utils/dataProcessing";
-import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { FormData, Result } from "@/constants/filtering";
+import { OrgCourseListResponses } from "@/types/OrgCourse";
 
 export const fetcher = async (
   filterConditions: {
@@ -20,13 +21,15 @@ export const fetcher = async (
   return response.json();
 };
 
-export const useCourseFetch = (data: FormData, offset: number) => {
+export const useCourseFetch = (
+  data: FormData,
+  offset: number
+): UseQueryResult<OrgCourseListResponses, Error> => {
   const filterConditions = dataTransform(data);
   return useQuery({
     queryKey: ["getContent"],
     queryFn: async () => {
       const response = await fetcher(filterConditions, offset);
-      console.log(response);
       return response;
     },
   });

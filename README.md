@@ -25,9 +25,18 @@
 
           {"$and":[{"title":"%%"},{"$or":[{"status":2},{"status":3},{"status":4}]},{"$or":[]},{"$or":[{"course_type":1},{"course_type":3}]},{"is_datetime_enrollable":true}]}
 
-    Q
+- 페이지네이션은 어떻게 구현하는게 좋을까?
 
-- Label은 예제 화면에도 없고 실제 서비스 중인 화면에도 있지 않은데 어디에 만들어야 하는 것이고 어떤 역할을 하는 것인지?
-- API를 elice 프로덕션 서버에서 직접 호출하는 것이 아닌 Next route 기능을 이용하여 프론트엔드에서 Next route로 Next route에서 elice로 호출해야 하는 것인지?
-- 예제 필터에서 enroll_type은 무엇을 의미하는 것인지?
-- IconText의 임의 아이콘도 Search Area와 마찬가지로 Font-awesome이나 자유롭게 원하는 아이콘을 사용해도 괜찮은지?
+  - 현재 알고 있는 값은 course 갯수, offset (clientside에서 관리)
+
+  - 그렇다면 20개를 기준으로 가져오라고 했기 때문에 20으로 현재 모든 course를 나눠야 함.
+
+  - math.ceil을 통해 course를 20으로 나눴을 때 총 페이지 갯수가 나옴
+
+  - math.ceil을 통해 offset을 course로 나누면 현재 페이지가 나올꺼 같음.
+
+  - 그렇게 했을 때 현재 페이지의 -4, +4 범위를 구함
+
+  - -4 했을 때 1보다 적다면 그 만큼 + 를 더 해줘야함
+
+  - 반대도 마찬가지
