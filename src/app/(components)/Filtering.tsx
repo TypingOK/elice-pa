@@ -1,5 +1,5 @@
 "use client";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import SearchArea from "./SearchArea";
 import {
   category,
@@ -8,26 +8,51 @@ import {
   level,
   price,
   programmingLanguage,
+  FormData,
 } from "@/constants/filtering";
 import { Badge } from "@/components/ui/badge";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-export interface FormData {
-  [key: string]: string;
-}
-
-function isNumeric(str: string) {
-  return /^[0-9]+$/.test(str);
-}
+import { useSearchParams } from "next/navigation";
+import { isNumeric } from "@/utils/isNumberic";
+import { isExists } from "@/utils/ixExists";
 
 const FilteringWrapper = () => {
-  const { setValue, register, handleSubmit, getValues, watch } =
-    useForm<FormData>();
   const searchParams = useSearchParams();
-  console.log(searchParams.getAll("courseType"));
+  const initialCourseType = searchParams.getAll("courseType");
+  const initialFormat = searchParams.getAll("format");
+  const initialCategory = searchParams.getAll("category");
+  const initialLevel = searchParams.getAll("level");
+  const initialProgrammingLanguage = searchParams.getAll("programmingLanguage");
+  const initialPrice = searchParams.getAll("price");
+  const initialKeyword = searchParams.get("keyword");
+  console.log(initialKeyword);
+  const initialCourseTypeResult = isExists(initialCourseType, courseType);
+  const initialFormatResult = isExists(initialFormat, format);
+  const initialCategoryResult = isExists(initialCategory, category);
+  const initialLevelResult = isExists(initialLevel, level);
+  const initialProgrammingLanguageResult = isExists(
+    initialProgrammingLanguage,
+    programmingLanguage
+  );
+  const initialPriceResult = isExists(initialPrice, price);
+  let initialKeywordResult = "";
 
+  if (initialKeyword && initialKeyword.trim() !== "") {
+    initialKeywordResult = initialKeyword;
+  }
+
+  const initialData = {
+    ...initialCourseTypeResult,
+    ...initialFormatResult,
+    ...initialCategoryResult,
+    ...initialLevelResult,
+    ...initialProgrammingLanguageResult,
+    ...initialPriceResult,
+    keyword: initialKeywordResult,
+  };
+
+  const { setValue, register, handleSubmit, getValues, watch } =
+    useForm<FormData>({ defaultValues: initialData });
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    console.log(data);
     let path = "";
     Object.keys(data).forEach((e) => {
       if (data[e] && data[e] !== "") {
@@ -55,6 +80,8 @@ const FilteringWrapper = () => {
     if (window) {
       window.history.pushState({}, "", `?${path}`);
     }
+
+    
   };
 
   const handleFilter = (name: string, label: number) => {

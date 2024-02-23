@@ -83,3 +83,8 @@ export const price: CourseFilter = {
   filterType: "enroll_type",
   pathType: "price",
 };
+
+
+export interface FormData {
+  [key: string]: string;
+}
