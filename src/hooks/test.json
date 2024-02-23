@@ -1,0 +1,6 @@
+{"$and":[{"title":"%%"},
+    {"$or":[{"status":2},{"status":3},{"status":4}]},
+    {"$or":[]},
+        {"$or":[{"$or":[{"course_type":0},{"course_type":2}]},{"course_type":1}]},
+    {"is_datetime_enrollable":true}
+]}

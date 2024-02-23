@@ -84,7 +84,22 @@ export const price: CourseFilter = {
   pathType: "price",
 };
 
-
 export interface FormData {
   [key: string]: string;
+}
+
+export interface Filtered {
+  [key: string]: string | boolean | { $or: { course_type: number }[] };
+}
+
+export interface Condition {
+  [key: string]: number | string | boolean;
+}
+
+export interface NestedOrCondition {
+  $or: Condition[];
+}
+
+export interface Result {
+  $or: (Condition | NestedOrCondition)[];
 }
