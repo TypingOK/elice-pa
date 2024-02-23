@@ -20,8 +20,8 @@ export default function RootLayout({
     <html lang="ko">
       <body className={inter.className}>
         <Provider>
-          <div className="p-6 flex justify-center w-full h-full">
-            <div className="max-w-[1280px] w-full h-full">{children}</div>
+          <div className="flex justify-center w-full h-full">
+            <div className="max-w-[1280px] p-6 w-full h-full">{children}</div>
           </div>
         </Provider>
       </body>

@@ -8,7 +8,7 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from "react-hook-form";
-import { FormData } from "./Filtering";
+import { FormData } from "@/constants/filtering";
 import _ from "lodash";
 
 const SearchArea = ({
@@ -47,7 +47,7 @@ const SearchArea = ({
 
   return (
     <div
-      className={`w-full flex border ${
+      className={`w-full flex border bg-white ${
         isFocused ? "border-blue-500" : "border-[rgb(201,202,204)]"
       } my-3 py-3 rounded-[4px]`}
     >

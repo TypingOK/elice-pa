@@ -103,7 +103,7 @@ const FilteringWrapper = () => {
           onSubmit={onSubmit}
           setValue={setValue}
         />
-        <table className="w-full">
+        <table className="w-full bg-white">
           <tbody className="border">
             <tr className="border">
               <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
@@ -255,7 +255,7 @@ const FilteringWrapper = () => {
           </tbody>
         </table>
       </form>
-      <div>{<ContentWrapper formData={getValues()} />}</div>
+      <div className="w-full h-full">{<ContentWrapper formData={getValues()} />}</div>
     </div>
   );
 };

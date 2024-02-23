@@ -22,7 +22,6 @@ export const fetcher = async (
 
 export const useCourseFetch = (data: FormData, offset: number) => {
   const filterConditions = dataTransform(data);
-  console.log(filterConditions);
   return useQuery({
     queryKey: ["getContent"],
     queryFn: async () => {
