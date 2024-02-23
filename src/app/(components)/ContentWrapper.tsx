@@ -2,7 +2,7 @@
 
 import { FormData } from "@/constants/filtering";
 import { useCourseFetch } from "@/hooks/useCourseFetch";
-import { Cousrse } from "@/types/OrgCourse";
+import { Cousrse } from "@/types/orgCourse";
 import { useEffect, useState } from "react";
 import ContentCard from "./Card";
 import ContentPagination from "./Pagination";
@@ -16,11 +16,11 @@ const ContentWrapper = ({ formData }: { formData: FormData }) => {
   }, [formData, refetch, offsetState]);
   return (
     <div className="w-full">
-      <div className="w-full text-xs my-1 py-2 border-b border-stone-500">
-        전체 {data && data.course_count} 개
+      <div className="w-full text-xs mb-1 mt-8 py-2 border-b font-extrabold border-stone-500">
+        {data && <>전체 {data.course_count} 개</>}
       </div>
 
-      <div className={`w-full flex flex-wrap gap-4 justify-start`}>
+      <div className={`w-full flex flex-wrap gap-4 mt-4 justify-start`}>
         {data &&
           data.courses &&
           data.courses.map((course: Cousrse) => (

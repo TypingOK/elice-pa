@@ -1,7 +1,7 @@
-import { dataTransform } from "@/utils/dataProcessing";
+import { dataTransform } from "@/lib/dataProcessing";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { FormData, Result } from "@/constants/filtering";
-import { OrgCourseListResponses } from "@/types/OrgCourse";
+import { OrgCourseListResponses } from "@/types/orgCourse";
 
 export const fetcher = async (
   filterConditions: {

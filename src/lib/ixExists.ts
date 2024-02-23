@@ -1,6 +1,6 @@
-import { CourseFilter } from "@/constants/filtering";
+import { Filter } from "@/types/filter";
 
-export const isExists = (pathParams: string[], filterObject: CourseFilter) => {
+export const isExists = (pathParams: string[], filterObject: Filter) => {
   const indexes = pathParams.map((value) => parseInt(value));
   let result: { [key: string]: string } = {};
   for (const key in filterObject.filter) {

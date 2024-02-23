@@ -1,4 +1,4 @@
-import { isNumeric } from "@/utils/isNumberic";
+import { isNumeric } from "@/lib/isNumberic";
 import {
   courseType,
   format,

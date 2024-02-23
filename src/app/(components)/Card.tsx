@@ -1,4 +1,4 @@
-import { Cousrse } from "@/types/OrgCourse";
+import { Cousrse } from "@/types/orgCourse";
 import Image from "next/image";
 
 const ContentCard = ({ course }: { course: Cousrse }) => {

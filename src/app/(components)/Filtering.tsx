@@ -10,11 +10,11 @@ import {
   programmingLanguage,
   FormData,
 } from "@/constants/filtering";
-import { Badge } from "@/components/ui/badge";
 import { useSearchParams } from "next/navigation";
-import { isNumeric } from "@/utils/isNumberic";
-import { isExists } from "@/utils/ixExists";
+import { isNumeric } from "@/lib/isNumberic";
+import { isExists } from "@/lib/ixExists";
 import ContentWrapper from "./ContentWrapper";
+import FilterElements from "./FilterElements";
 
 const FilteringWrapper = () => {
   const searchParams = useSearchParams();
@@ -103,159 +103,80 @@ const FilteringWrapper = () => {
           onSubmit={onSubmit}
           setValue={setValue}
         />
-        <table className="w-full bg-white">
+        <table className="w-full bg-white font-bold">
           <tbody className="border">
             <tr className="border">
               <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
                 유형
               </td>
-              <td className="p-2">
-                {Object.keys(courseType.filter).map((e) => (
-                  <Badge
-                    key={courseType.filter[e].index}
-                    onClick={() => {
-                      handleFilter(e, courseType.filter[e].index);
-                    }}
-                    variant={
-                      watch(courseType.filter[e].index.toString()) === e
-                        ? "default"
-                        : "outline"
-                    }
-                    className={`min-w-[1.875rem] mx-2 my-1 `}
-                    {...register(courseType.filter[e].index.toString())}
-                  >
-                    {e}
-                  </Badge>
-                ))}
-              </td>
+              <FilterElements
+                course={courseType}
+                handleFilter={handleFilter}
+                watch={watch}
+                register={register}
+              />
             </tr>
             <tr className="border">
               <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
                 진행방식
               </td>
-              <td className="p-2">
-                {Object.keys(format.filter).map((e) => (
-                  <Badge
-                    key={format.filter[e].index}
-                    onClick={() => {
-                      handleFilter(e, format.filter[e].index);
-                    }}
-                    variant={
-                      watch(format.filter[e].index.toString()) === e
-                        ? "default"
-                        : "outline"
-                    }
-                    className={`min-w-[1.875rem] mx-2 my-1`}
-                    {...register(format.filter[e].index.toString())}
-                  >
-                    {e}
-                  </Badge>
-                ))}
-              </td>
+              <FilterElements
+                course={format}
+                handleFilter={handleFilter}
+                watch={watch}
+                register={register}
+              />
             </tr>
             <tr className="border">
               <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
                 분야
               </td>
-              <td className="p-2">
-                {Object.keys(category.filter).map((e) => (
-                  <Badge
-                    key={category.filter[e].index}
-                    onClick={() => {
-                      handleFilter(e, category.filter[e].index);
-                    }}
-                    variant={
-                      watch(category.filter[e].index.toString()) === e
-                        ? "default"
-                        : "outline"
-                    }
-                    className={`min-w-[1.875rem] mx-2 my-1`}
-                    {...register(category.filter[e].index.toString())}
-                  >
-                    {e}
-                  </Badge>
-                ))}
-              </td>
+              <FilterElements
+                course={category}
+                handleFilter={handleFilter}
+                watch={watch}
+                register={register}
+              />
             </tr>
             <tr className="border">
               <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
                 난이도
               </td>
-              <td className="p-2">
-                {Object.keys(level.filter).map((e) => (
-                  <Badge
-                    key={level.filter[e].index}
-                    onClick={() => {
-                      handleFilter(e, level.filter[e].index);
-                    }}
-                    variant={
-                      watch(level.filter[e].index.toString()) === e
-                        ? "default"
-                        : "outline"
-                    }
-                    className={`min-w-[1.875rem] mx-2 my-1`}
-                    {...register(level.filter[e].index.toString())}
-                  >
-                    {e}
-                  </Badge>
-                ))}
-              </td>
+              <FilterElements
+                course={level}
+                handleFilter={handleFilter}
+                watch={watch}
+                register={register}
+              />
             </tr>
             <tr className="border">
               <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
                 언어
               </td>
-              <td className="p-2">
-                {Object.keys(programmingLanguage.filter).map((e) => (
-                  <Badge
-                    key={programmingLanguage.filter[e].index}
-                    onClick={() => {
-                      handleFilter(e, programmingLanguage.filter[e].index);
-                    }}
-                    variant={
-                      watch(programmingLanguage.filter[e].index.toString()) ===
-                      e
-                        ? "default"
-                        : "outline"
-                    }
-                    className={`min-w-[1.875rem] mx-2 my-1`}
-                    {...register(
-                      programmingLanguage.filter[e].index.toString()
-                    )}
-                  >
-                    {e}
-                  </Badge>
-                ))}
-              </td>
+              <FilterElements
+                course={programmingLanguage}
+                handleFilter={handleFilter}
+                watch={watch}
+                register={register}
+              />
             </tr>
             <tr className="border">
               <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
                 가격
               </td>
-              <td className="p-2">
-                {Object.keys(price.filter).map((e) => (
-                  <Badge
-                    key={price.filter[e].index}
-                    onClick={() => {
-                      handleFilter(e, price.filter[e].index);
-                    }}
-                    variant={
-                      watch(price.filter[e].index.toString()) === e
-                        ? "default"
-                        : "outline"
-                    }
-                    className={`min-w-[1.875rem] mx-2 my-1`}
-                    {...register(price.filter[e].index.toString())}
-                  >
-                    {e}
-                  </Badge>
-                ))}
-              </td>
+              <FilterElements
+                course={price}
+                handleFilter={handleFilter}
+                watch={watch}
+                register={register}
+              />
             </tr>
           </tbody>
         </table>
       </form>
-      <div className="w-full h-full">{<ContentWrapper formData={getValues()} />}</div>
+      <div className="w-full h-full">
+        {<ContentWrapper formData={getValues()} />}
+      </div>
     </div>
   );
 };

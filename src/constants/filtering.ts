@@ -1,16 +1,6 @@
-export interface CourseFilter {
-  filterType: "course_type" | "tag_id" | "enroll_type";
-  pathType:
-    | "courseType"
-    | "format"
-    | "category"
-    | "level"
-    | "programmingLanguage"
-    | "price";
-  filter: { [key: string]: { index: number; data: number[] } };
-}
+import { Filter } from "@/types/filter";
 
-export const courseType: CourseFilter = {
+export const courseType: Filter = {
   filter: {
     과목: { index: 1, data: [0, 2] },
     챌린지: { index: 2, data: [1] },
@@ -20,7 +10,7 @@ export const courseType: CourseFilter = {
   filterType: "course_type",
 };
 
-export const format: CourseFilter = {
+export const format: Filter = {
   filter: {
     "자유 선택형": { index: 4, data: [0] },
     "순차 완료형": { index: 5, data: [2] },
@@ -29,7 +19,7 @@ export const format: CourseFilter = {
   pathType: "format",
 };
 
-export const category: CourseFilter = {
+export const category: Filter = {
   filter: {
     "프로그래밍 기초": { index: 6, data: [12] },
     "데이터 분석": { index: 7, data: [13] },
@@ -41,7 +31,7 @@ export const category: CourseFilter = {
   pathType: "category",
 };
 
-export const level: CourseFilter = {
+export const level: Filter = {
   filter: {
     입문: { index: 11, data: [100] },
     초급: { index: 12, data: [101] },
@@ -53,7 +43,7 @@ export const level: CourseFilter = {
   pathType: "level",
 };
 
-export const programmingLanguage: CourseFilter = {
+export const programmingLanguage: Filter = {
   filter: {
     C: { index: 16, data: [7] },
     "C++": { index: 17, data: [8] },
@@ -73,7 +63,7 @@ export const programmingLanguage: CourseFilter = {
   pathType: "programmingLanguage",
 };
 
-export const price: CourseFilter = {
+export const price: Filter = {
   filter: {
     무료: { index: 29, data: [0] },
     유료: { index: 30, data: [0] },
