@@ -17,6 +17,8 @@
 
 문제는 전체적으로 유저가 선택한 내용에 따라 필터링을 할 수 있도록 해야하며 입력에 따라 자동으로 서버에 요청을 보내도록 해야하는 것으로 파악 했습니다. 파악한 내용을 바탕으로 순서도를 세우면
 
+![flowchart.png](document/images/workflowchart.png)
+
 1. 사용자가 접속 했을 때 주소에 쿼리가 있는지 체크 합니다.
 2. 어떤 데이터를 가져와야 하는지 판별합니다.
 3. 가져온 데이터를 화면에 출력합니다.
@@ -27,6 +29,8 @@
 
 처음 생각한 방식으로는 크게 두개의 컴포넌트로 나누어야 한다고 생각했습니다.<br />
 두개의 컴포넌트는 아래와 같습니다.
+
+![ComponentStructure.png](document/images/ComponentStructure.png)
 
 1. 검색 input 태그를 포함한 필터링 버튼 영역 (이하 필터링 영역)
 2. Card들이 나오는 영역 (이하 Card 영역)
@@ -39,29 +43,25 @@
 
 결국 Card 영역은 필터링 영역의 자식으로 두고 상위에서 필터링과 관련된 데이터를 props로 받아와서 fetching 하는 편이 더 편할 것이라고 생각하였습니다.
 
-설계를 하면서 라이브러리는 어떤 것들을 사용할까 고민 하였습니다.
-
 ## 활용한 라이브러리와 선택 이유
 
 활용한 라이브러리는 아래와 같습니다.
 
-1. Next.js
-2. Tanstack-query
-3. lodash
-4. Tailwind CSS
-5. react-hook-form
-6. react-error-boundary
+![techstack.png](document/images/techstack.png)
+
+1. Next.js는 기본적으로 문제에서 요구하였기 때문에 선택하였습니다.
+2. lodash의 경우 input 태그에서 입력이 발생 했을 때 마다 서버에 데이터를 보내는 것을 막기 위해 사용하였습니다.
+3. Tanstack-query를 사용하면 서버에서 데이터를 가져오는 상태를 관리하기 쉽습니다. 그리고 query 키를 활용한 데이터 캐싱과 Suspense, ErrorBoundrary를 지원하고 쉽게 대응 할 수 있기 때문에 비동기 통신을 지원하는 Redux나 기타 다른 상태관리 라이브러리에 비해 장점이 있다고 생각해서 활용하였습니다.
+4. Tailwind CSS는 비교적 최근까지 활용해왔고 현재에는 가장 익숙한 디자인 관련 라이브러리이기 때문에 사용 했습니다. 또한 빌드 후 CSS 파일로 나오기 때문에 Next.js와의 궁합이 잘 맞다고 생각합니다.
+5. react-hook-form 사용해야 할 input과 필터 버튼들이 많기 때문에 별도의 state로 관리 하기보다는 react-hook-form을 통해 한꺼번에 관리 하는 것이 편하다고 생각하여서 사용하였습니다.
 
 그 외에 디자인을 위해 shadcn-ui를 사용하였으며 해당 디자인 시스템을 사용하기 위해 clsx와 cva, tailwind-merge가 같이 설치 되었습니다.
 
-- Next.js는 기본적으로 문제에서 요구하였기 때문에 선택하였습니다.
-- Tanstack-query를 사용하면 서버에서 데이터를 가져오는 상태를 관리하기 쉽습니다. 그리고 query 키를 활용한 데이터 캐싱과 Suspense, ErrorBoundrary를 지원하고 쉽게 대응 할 수 있기 때문에 비동기 통신을 지원하는 Redux나 기타 다른 상태관리 라이브러리에 비해 장점이 있다고 생각해서 활용하였습니다.
-- lodash의 경우 input 태그에서 입력이 발생 했을 때 마다 서버에 데이터를 보내는 것을 막기 위해 사용하였습니다.
-- Tailwind CSS는 비교적 최근까지 활용해왔고 현재에는 가장 익숙한 디자인 관련 라이브러리이기 때문에 사용 했습니다. 또한 빌드 후 CSS 파일로 나오기 때문에 Next.js와의 궁합이 잘 맞다고 생각합니다.
-- react-hook-form 사용해야 할 input과 필터 버튼들이 많기 때문에 별도의 state로 관리 하기보다는 react-hook-form을 통해 한꺼번에 관리 하는 것이 편하다고 생각하여서 사용하였습니다.
-- react-error-boundary 기존 공식 홈페이지에 소개된 error boundary와 거의 동일한 기능을 수행 하면서도 함수형으로 작성되어 있으며 props로 여러 fallback 컴포넌트를 받을 수 있기 때문에 페이지 별로 별도의 에러 컴포넌트를 작성할 수 있다는 이점이 있어서 사용하였습니다.
+또한 비동기 에러 처리를 위해 react-error-boundary를 사용하였습니다. 기존 공식 홈페이지에 소개된 error boundary와 거의 동일한 기능을 수행 하면서도 함수형으로 작성되어 있으며 props로 여러 fallback 컴포넌트를 받을 수 있기 때문에 페이지 별로 별도의 에러 컴포넌트를 작성할 수 있다는 이점이 있어서 사용하였습니다.
 
 ## 필터링 영역
+
+![filterArea_ani.gif](document/images/filterArea_ani.gif)
 
 필터링 영역에서는 제목 검색을 위한 input 태그와 여러 버튼들이 존재하는 컴포넌트 입니다.
 
@@ -74,6 +74,8 @@
 마지막으로 서버에 요청할 쿼리문을 만들기 위해 form을 통해 만들어낸 데이터를 분별하고 조작하기 위한 함수를 lib/dataProcessing.ts 파일에 만들었습니다. 해당 함수를 통해 form에 어떤 데이터를 유저가 선택했는지 확인하고 정리한 결과를 JSON 구조로 만들기 위한 전처리를 하게 됩니다.
 
 ## Card 영역
+
+![CardArea_ani.gif](document/images/CardArea_ani.gif)
 
 카드 영역에서는 필터링 영역의 결과를 바탕으로 데이터를 fetching 하고 화면에 출력하도록 합니다.
 
