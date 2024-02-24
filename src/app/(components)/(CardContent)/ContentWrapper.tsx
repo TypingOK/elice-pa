@@ -9,7 +9,7 @@ import ContentPagination from "./Pagination";
 
 const ContentWrapper = ({ formData }: { formData: FormData }) => {
   const [offsetState, setOffsetState] = useState<number>(0);
-  const { data, error } = useCourseFetch(formData, offsetState);
+  const { data, error } = useCourseFetch(formData, offsetState, 20);
   useEffect(() => {
     setOffsetState(0);
   }, [formData]);

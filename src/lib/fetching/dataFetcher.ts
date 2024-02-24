@@ -9,12 +9,14 @@ export const fetcher = async (
       | Result
     )[];
   },
-  offset: number
+  offset: number,
+  count: number
 ) => {
   const conditionsString = JSON.stringify(filterConditions);
+  const encodedConditions = encodeURIComponent(conditionsString);
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/course?filter_conditions=${conditionsString}&sort_by=created_datetime.desc&offset=${offset}&count=20`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/course?filter_conditions=${encodedConditions}&sort_by=created_datetime.desc&offset=${offset}&count=${count}`
     );
     if (response.status === 500) {
       throw response.statusText;

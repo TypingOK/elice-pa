@@ -1,14 +1,16 @@
-import { NextResponse } from "next/server";
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
   const filter_conditions = searchParams.get("filter_conditions");
-  const encoded_conditions = encodeURIComponent(filter_conditions as string);
+
   const offset = searchParams.get("offset");
+  const count = searchParams.get("count") as string;
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_ELICE_BACKEND_URL}?filter_conditions=${encoded_conditions}
-    &sort_by=created_datetime.desc&offset=${offset}&count=20`,
+    `${
+      process.env.NEXT_PUBLIC_ELICE_BACKEND_URL
+    }?filter_conditions=${filter_conditions}
+    &sort_by=created_datetime.desc&offset=${offset}&count=${parseInt(count)}`,
     {
       headers: {
         "Content-Type": "application/json",
