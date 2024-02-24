@@ -36,6 +36,7 @@ const SearchArea = ({
   };
 
   // 사용자가 input 태그에 무언가를 입력했다면 실행 할 함수, lodash의 debounce함수를 통해 300ms 후 실행
+  // useMemo를 사용하여 debounce가 제대로 동작할 수 있도록 함. (리렌더링이 되면 debounce된 함수가 초기화 되고 새로운 입력을 기다리기 때문에 의도한대로 작동하지 않음)
   const handleChange = useMemo(
     () =>
       _.debounce((e: React.ChangeEvent<HTMLInputElement>) => {

@@ -2,33 +2,16 @@ import { dataTransform } from "@/lib/dataProcessing";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { FormData, Result } from "@/constants/filtering";
 import { OrgCourseListResponses } from "@/types/orgCourse";
-
-export const fetcher = async (
-  filterConditions: {
-    $and: (
-      | {
-          [key: string]: string | boolean;
-        }
-      | Result
-    )[];
-  },
-  offset: number
-) => {
-  const encodedString = encodeURIComponent(JSON.stringify(filterConditions));
-  const response = await fetch(
-    `/api/course?filter_conditions=${encodedString}&sort_by=created_datetime.desc&offset=${offset}&count=20`
-  );
-  return response.json();
-};
+import { fetcher } from "@/lib/dataFetcher";
 
 export const useCourseFetch = (
   data: FormData,
   offset: number
 ): UseQueryResult<OrgCourseListResponses, Error> => {
-  const filterConditions = dataTransform(data);
   return useQuery({
-    queryKey: ["getContent"],
+    queryKey: ["getContent", data, offset],
     queryFn: async () => {
+      const filterConditions = dataTransform(data);
       const response = await fetcher(filterConditions, offset);
       return response;
     },

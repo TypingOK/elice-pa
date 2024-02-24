@@ -3,17 +3,14 @@
 import { FormData } from "@/constants/filtering";
 import { useCourseFetch } from "@/hooks/useCourseFetch";
 import { Cousrse } from "@/types/orgCourse";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ContentCard from "./Card";
 import ContentPagination from "./Pagination";
 
 const ContentWrapper = ({ formData }: { formData: FormData }) => {
   const [offsetState, setOffsetState] = useState<number>(0);
-  const { data, refetch } = useCourseFetch(formData, offsetState);
+  const { data } = useCourseFetch(formData, offsetState);
 
-  useEffect(() => {
-    refetch();
-  }, [formData, refetch, offsetState]);
   return (
     <div className="w-full">
       <div className="w-full text-xs mb-1 mt-8 py-2 border-b font-extrabold border-stone-500">

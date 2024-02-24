@@ -1,6 +1,6 @@
 "use client";
 
-import FilteringWrapper from "./(components)/Filtering";
+import FilteringWrapper from "./(components)/MainContainer";
 
 const Page = () => {
   return (

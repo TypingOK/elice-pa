@@ -1,6 +1,6 @@
 "use client";
 import { SubmitHandler, useForm } from "react-hook-form";
-import SearchArea from "./SearchArea";
+import SearchArea from "./(Filter)/SearchArea";
 import {
   category,
   courseType,
@@ -13,10 +13,10 @@ import {
 import { useSearchParams } from "next/navigation";
 import { isNumeric } from "@/lib/isNumberic";
 import { isExists } from "@/lib/ixExists";
-import ContentWrapper from "./ContentWrapper";
-import FilterElements from "./FilterElements";
+import ContentWrapper from "./(CardContent)/ContentWrapper";
+import FilterTable from "./(Filter)/Table";
 
-const FilteringWrapper = () => {
+const MainContainer = () => {
   const searchParams = useSearchParams();
   const initialCourseType = searchParams.getAll("courseType");
   const initialFormat = searchParams.getAll("format");
@@ -103,76 +103,11 @@ const FilteringWrapper = () => {
           onSubmit={onSubmit}
           setValue={setValue}
         />
-        <table className="w-full bg-white font-bold">
-          <tbody className="border">
-            <tr className="border">
-              <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
-                유형
-              </td>
-              <FilterElements
-                course={courseType}
-                handleFilter={handleFilter}
-                watch={watch}
-                register={register}
-              />
-            </tr>
-            <tr className="border">
-              <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
-                진행방식
-              </td>
-              <FilterElements
-                course={format}
-                handleFilter={handleFilter}
-                watch={watch}
-                register={register}
-              />
-            </tr>
-            <tr className="border">
-              <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
-                분야
-              </td>
-              <FilterElements
-                course={category}
-                handleFilter={handleFilter}
-                watch={watch}
-                register={register}
-              />
-            </tr>
-            <tr className="border">
-              <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
-                난이도
-              </td>
-              <FilterElements
-                course={level}
-                handleFilter={handleFilter}
-                watch={watch}
-                register={register}
-              />
-            </tr>
-            <tr className="border">
-              <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
-                언어
-              </td>
-              <FilterElements
-                course={programmingLanguage}
-                handleFilter={handleFilter}
-                watch={watch}
-                register={register}
-              />
-            </tr>
-            <tr className="border">
-              <td className="min-w-24 py-[0.875rem] px-4 text-sm border-r bg-stone-100">
-                가격
-              </td>
-              <FilterElements
-                course={price}
-                handleFilter={handleFilter}
-                watch={watch}
-                register={register}
-              />
-            </tr>
-          </tbody>
-        </table>
+        <FilterTable
+          handleFilter={handleFilter}
+          watch={watch}
+          register={register}
+        />
       </form>
       <div className="w-full h-full">
         {<ContentWrapper formData={getValues()} />}
@@ -181,4 +116,4 @@ const FilteringWrapper = () => {
   );
 };
 
-export default FilteringWrapper;
+export default MainContainer;
