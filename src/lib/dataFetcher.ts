@@ -11,9 +11,16 @@ export const fetcher = async (
   },
   offset: number
 ) => {
-  const encodedString = encodeURIComponent(JSON.stringify(filterConditions));
-  const response = await fetch(
-    `/api/course?filter_conditions=${encodedString}&sort_by=created_datetime.desc&offset=${offset}&count=20`
-  );
-  return response.json();
+  const conditionsString = JSON.stringify(filterConditions);
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}api/course?filter_conditions=${conditionsString}&sort_by=created_datetime.desc&offset=${offset}&count=20`
+    );
+    if (response.status === 500) {
+      throw response.statusText;
+    }
+    return response.json();
+  } catch (error) {
+    throw error;
+  }
 };

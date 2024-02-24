@@ -15,6 +15,10 @@ import { isNumeric } from "@/lib/isNumberic";
 import { isExists } from "@/lib/ixExists";
 import ContentWrapper from "./(CardContent)/ContentWrapper";
 import FilterTable from "./(Filter)/Table";
+import { Suspense } from "react";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallbackRender from "@/components/ui/ErrorFallbackUI";
 
 const MainContainer = () => {
   const searchParams = useSearchParams();
@@ -109,8 +113,12 @@ const MainContainer = () => {
           register={register}
         />
       </form>
-      <div className="w-full h-full">
-        {<ContentWrapper formData={getValues()} />}
+      <div className="w-full h-full relative">
+        <Suspense fallback={<LoadingSpinner />}>
+          <ErrorBoundary fallbackRender={ErrorFallbackRender}>
+            {<ContentWrapper formData={getValues()} />}
+          </ErrorBoundary>
+        </Suspense>
       </div>
     </div>
   );
