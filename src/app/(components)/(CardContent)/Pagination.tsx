@@ -36,10 +36,10 @@ const ContentPagination = ({
         {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
           <button
             key={index + startPage}
-            className={`w-6 h-6 rounded-sm mx-[0.375rem] ${
+            className={`w-6 h-6 rounded-sm mx-[0.375rem] transition duration-150 ${
               index + startPage === nowPage
-                ? `bg-[#524fa1] text-white`
-                : `text-[#999]`
+                ? `bg-[#524fa1] text-white hover:bg-opacity-0 hover:font-bold hover:text-[#524fa1]`
+                : `text-[#999] hover:text-[#524fa1] hover:font-bold hover:scale-125`
             }`}
             onClick={() => {
               setOffsetState((index + startPage - 1) * 20);
